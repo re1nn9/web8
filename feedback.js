@@ -2,7 +2,7 @@
 "use strict";
 
 // Адрес отправки формы: замените YOUR_FORM_ID на ID вашей формы в formcarry.com
-const FORM_URL = "https://formcarry.com/s/YOUR_FORM_ID";
+const FORM_URL = "https://formcarry.com/s/jbE7WwYl78y";
 const STORAGE_KEY = "feedbackFormData";
 const POPUP_HASH = "#feedback";
 const FIELD_NAMES = ["fullname", "email", "phone", "organization", "message"];
