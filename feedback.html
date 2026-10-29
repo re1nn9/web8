@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Обратная связь — Zika-учебный сайт</title>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css">
+    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="feedback.css">
+    <script src="feedback.js" defer></script>
+</head>
+<body>
+
+<header class="site-header">
+    <div class="container py-3">
+        <div class="d-flex align-items-center gap-3">
+            <a href="https://kubsu.ru/" title="КубГУ">
+                <img class="site-logo" src="kubanskiy.jpg" alt="КубГУ">
+            </a>
+            <h1 class="h4 text-white mb-0">Zika-учебный сайт</h1>
+        </div>
+    </div>
+    <nav class="navbar navbar-expand navbar-dark border-top border-light-subtle" aria-label="Основное меню">
+        <div class="container">
+            <ul class="navbar-nav flex-wrap">
+                <li class="nav-item"><a class="nav-link" href="index.html">Главная</a></li>
+                <li class="nav-item"><a class="nav-link" href="service.html">Услуги</a></li>
+                <li class="nav-item"><a class="nav-link" href="gallery.html">Галерея</a></li>
+                <li class="nav-item"><a class="nav-link active" href="feedback.html" aria-current="page">Обратная связь</a></li>
+            </ul>
+        </div>
+    </nav>
+</header>
+
+<main class="container py-4">
+    <section id="contact" class="card shadow-sm">
+        <div class="card-body p-3 p-md-4">
+            <h2 class="h3 mb-3">Обратная связь</h2>
+            <p>Есть вопрос или предложение? Нажмите на кнопку и напишите нам.</p>
+            <div class="d-flex flex-wrap gap-2">
+                <button class="btn btn-primary px-4" id="feedback-open" type="button">Написать нам</button>
+            </div>
+        </div>
+    </section>
+</main>
+
+<footer class="site-footer">
+    <div class="container py-3">
+        <p class="mb-0">
+            © 2026 Zika. Учебная работа по разработке Web-интерфейса.<br>
+            Контактные данные: <a class="link-light" href="mailto:vladzika2007@mail.ru">vladzika2007@mail.ru</a>
+        </p>
+    </div>
+</footer>
+
+<div class="feedback-overlay" id="feedback-popup" role="dialog" aria-modal="true" aria-labelledby="feedback-title" hidden>
+    <div class="feedback-dialog">
+        <button class="feedback-close" id="feedback-close" type="button" aria-label="Закрыть">&times;</button>
+        <h2 class="feedback-title h4" id="feedback-title">Обратная связь</h2>
+        <form id="feedback-form" novalidate>
+            <div class="mb-2">
+                <label class="form-label" for="feedback-fullname">ФИО:</label>
+                <input class="form-control" type="text" name="fullname" id="feedback-fullname" required placeholder=" "
+                       pattern="\s*\p{L}[\p{L}\-]*(\s+\p{L}[\p{L}\-]*)+\s*"
+                       title="Введите имя и фамилию через пробел, только буквы">
+            </div>
+            <div class="mb-2">
+                <label class="form-label" for="feedback-email">Email:</label>
+                <input class="form-control" type="email" id="feedback-email" name="email" autocomplete="email" required>
+            </div>
+            <div class="mb-2">
+                <label class="form-label" for="feedback-phone">Телефон:</label>
+                <input class="form-control" type="tel" id="feedback-phone" name="phone" autocomplete="tel" pattern="[0-9+ ]{10,}" title="Не менее 10 символов: цифры, пробелы и знак +" required>
+            </div>
+            <div class="mb-2">
+                <label class="form-label" for="feedback-organization">Организация:</label>
+                <input class="form-control" type="text" id="feedback-organization" name="organization" autocomplete="organization">
+            </div>
+            <div class="mb-2">
+                <label class="form-label" for="feedback-message">Сообщение:</label>
+                <textarea class="form-control" id="feedback-message" name="message" rows="3" required></textarea>
+            </div>
+            <div class="form-check mb-2">
+                <input class="form-check-input" type="checkbox" id="feedback-agree" name="agree" required>
+                <label class="form-check-label" for="feedback-agree">Согласен с <a href="privacy.html" target="_blank" rel="noopener">политикой обработки персональных данных</a></label>
+            </div>
+            <button class="btn btn-primary w-100" id="feedback-submit" type="submit">Отправить</button>
+            <div id="feedback-status" role="status" hidden></div>
+        </form>
+    </div>
+</div>
+
+</body>
+</html>

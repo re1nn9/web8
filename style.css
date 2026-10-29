@@ -1,0 +1,139 @@
+/* Свои стили поверх Bootstrap. Подход Mobile First:
+   сначала базовые стили для телефона, затем media (min-width) для широких экранов. */
+
+html {
+    scroll-behavior: smooth;
+}
+
+body {
+    background-color: #f1f3f5;
+}
+
+/* Шапка и подвал */
+.site-header {
+    background-color: #0d47a1;
+}
+
+.site-footer {
+    background-color: #212529;
+    color: #ced4da;
+}
+
+/* Логотип: круглый (на телефоне поменьше) */
+.site-logo {
+    display: block;
+    width: 38px;
+    height: 38px;
+    border-radius: 50%;
+    object-fit: cover;
+    background-color: #fff;
+}
+
+/* Якорные переходы не прижимаются к верху окна */
+main section,
+main h3[id] {
+    scroll-margin-top: 1rem;
+}
+
+/* ---------- Слайдер-галерея ---------- */
+
+.slider {
+    --per: 1; /* сколько изображений помещается на экране */
+    align-items: center;
+    display: flex;
+    gap: 0.5rem;
+}
+
+.slider-viewport {
+    flex: 1 1 auto;
+    min-width: 0;
+    overflow: hidden;
+}
+
+.slider-track {
+    display: flex;
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    transition: transform 0.4s ease;
+}
+
+.slide {
+    box-sizing: border-box;
+    flex: 0 0 calc(100% / var(--per));
+    padding: 0 0.4rem;
+}
+
+.slide img {
+    aspect-ratio: 4 / 3;
+    background-color: #fff;
+    border: 1px solid #dee2e6;
+    border-radius: 0.5rem;
+    display: block;
+    height: auto;
+    object-fit: contain;
+    width: 100%;
+}
+
+.slider-arrow {
+    align-items: center;
+    background-color: #1a5a96;
+    border: 0;
+    border-radius: 50%;
+    color: #fff;
+    cursor: pointer;
+    display: flex;
+    flex: 0 0 auto;
+    height: 44px;
+    justify-content: center;
+    padding: 0;
+    width: 44px;
+}
+
+.slider-arrow:hover {
+    background-color: #0d47a1;
+}
+
+.slider-arrow:disabled {
+    cursor: default;
+    opacity: 0.35;
+}
+
+/* Пейджер: точки, под ними текст «Страница N из M» */
+.pager {
+    text-align: center;
+}
+
+.pager-dots {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.6rem;
+    justify-content: center;
+    margin-bottom: 0.5rem;
+}
+
+.pager-dot {
+    background-color: transparent;
+    border: 2px solid #1a5a96;
+    border-radius: 50%;
+    cursor: pointer;
+    height: 14px;
+    padding: 0;
+    width: 14px;
+}
+
+.pager-dot.is-active {
+    background-color: #1a5a96;
+}
+
+/* Планшет и выше (≥768px): три изображения, логотип покрупнее */
+@media (min-width: 768px) {
+    .site-logo {
+        width: 44px;
+        height: 44px;
+    }
+
+    .slider {
+        --per: 3;
+    }
+}

@@ -1,0 +1,174 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Zika-учебный сайт: галерея</title>
+
+    <!-- Bootstrap 5 (только CSS) -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css">
+    <!-- Свои стили подключаются ПОСЛЕ Bootstrap -->
+    <link rel="stylesheet" href="style.css">
+</head>
+<body class="d-flex flex-column min-vh-100">
+
+<header class="site-header">
+    <div class="container py-3">
+        <div class="d-flex align-items-center gap-3">
+            <a href="https://kubsu.ru/" title="КубГУ">
+                <img class="site-logo" src="kubanskiy.jpg" alt="КубГУ">
+            </a>
+            <h1 class="h4 text-white mb-0">Zika-учебный сайт</h1>
+        </div>
+    </div>
+
+    <nav class="navbar navbar-expand navbar-dark border-top border-light-subtle" aria-label="Основное меню">
+        <div class="container">
+            <ul class="navbar-nav flex-wrap">
+                <li class="nav-item"><a class="nav-link" href="index.html#links">Ссылки</a></li>
+                <li class="nav-item"><a class="nav-link" href="index.html#table">Таблица</a></li>
+                <li class="nav-item"><a class="nav-link" href="index.html#form">Форма</a></li>
+                <li class="nav-item"><a class="nav-link" href="index.html#calculator">Калькулятор</a></li>
+                <li class="nav-item"><a class="nav-link" href="service.html">Услуги</a></li>
+                <li class="nav-item"><a class="nav-link active" href="gallery.html" aria-current="page">Галерея</a></li>
+            </ul>
+        </div>
+    </nav>
+</header>
+
+<main class="container py-4 flex-grow-1">
+    <section id="gallery" class="card shadow-sm">
+        <div class="card-body p-3 p-md-4">
+            <h2 class="h3 mb-2">Галерея брендов</h2>
+            <p class="text-secondary small mb-3">Листайте стрелками или переключайте страницы точками.</p>
+
+            <div class="slider" id="slider">
+                <button class="slider-arrow" id="slider-prev" type="button" aria-label="Назад">
+                    <svg viewBox="0 0 24 24" width="22" height="22" aria-hidden="true" focusable="false">
+                        <path d="M15 4l-8 8 8 8" fill="none" stroke="currentColor" stroke-width="3"
+                              stroke-linecap="round" stroke-linejoin="round"></path>
+                    </svg>
+                </button>
+
+                <div class="slider-viewport">
+                    <ul class="slider-track" id="slider-track">
+                        <li class="slide"><img src="Без названия.jpg" alt="Логотип Gucci" width="800" height="600"></li>
+                        <li class="slide"><img src="Prada-Logo.svg.webp" alt="Логотип Prada" width="800" height="600"></li>
+                        <li class="slide"><img src="Paris_riots,_17_October_2026_-_Crowd_breaking_into_a_Chanel_boutique_-_JJxFile_0100.jpg_13.jpg" alt="Логотип Chanel" width="800" height="600"></li>
+                        <li class="slide"><img src="Dior_Logo_2022.svg.webp" alt="Логотип Dior" width="800" height="600"></li>
+                        <li class="slide"><img src="Versace_old_logo.svg.webp" alt="Логотип Versace" width="800" height="600"></li>
+                        <li class="slide"><img src="Balenciaga_Logo.svg.webp" alt="Логотип Balenciaga" width="800" height="600"></li>
+                        <li class="slide"><img src="Louis_Vuitton_SVG_Monogram_Logo.svg.webp" alt="Логотип Louis Vuitton" width="800" height="600"></li>
+                        <li class="slide"><img src="Hermes_wordmark.svg.webp" alt="Логотип Hermès" width="800" height="600"></li>
+                    </ul>
+                </div>
+
+                <button class="slider-arrow" id="slider-next" type="button" aria-label="Вперёд">
+                    <svg viewBox="0 0 24 24" width="22" height="22" aria-hidden="true" focusable="false">
+                        <path d="M9 4l8 8-8 8" fill="none" stroke="currentColor" stroke-width="3"
+                              stroke-linecap="round" stroke-linejoin="round"></path>
+                    </svg>
+                </button>
+            </div>
+
+            <!-- Пейджер: точки-страницы и текст «Страница N из M» -->
+            <nav class="pager mt-3" aria-label="Страницы галереи">
+                <div class="pager-dots" id="pager-dots"></div>
+                <p class="pager-text text-secondary small mb-0" id="pager-text" aria-live="polite"></p>
+            </nav>
+        </div>
+    </section>
+</main>
+
+<footer class="site-footer">
+    <div class="container py-3">
+        <p class="mb-0">
+            © 2026 Zika. Учебная работа по разработке Web-интерфейса.<br>
+            Контактные данные: <a class="link-light" href="mailto:vladzika2007@mail.ru">vladzika2007@mail.ru</a>
+        </p>
+    </div>
+</footer>
+
+<script>
+    /*jslint browser */
+
+    // Ширина экрана, начиная с которой на экране помещается три изображения.
+    const desktopQuery = window.matchMedia("(min-width: 768px)");
+
+    let currentPage = 0;
+
+    function getPerPage() {
+        return (
+            desktopQuery.matches
+                ? 3
+                : 1
+        );
+    }
+
+    function updateSlider() {
+        const track = document.getElementById("slider-track");
+        const prevButton = document.getElementById("slider-prev");
+        const nextButton = document.getElementById("slider-next");
+        const pagerText = document.getElementById("pager-text");
+        const dotsBox = document.getElementById("pager-dots");
+        const total = track.children.length;
+        const perPage = getPerPage();
+        const pageCount = Math.ceil(total / perPage);
+        // Номер первого видимого изображения; на последней странице не уходим за край.
+        const firstIndex = Math.min(currentPage * perPage, total - perPage);
+
+        track.style.transform = `translateX(${-firstIndex * 100 / perPage}%)`;
+        prevButton.disabled = currentPage === 0;
+        nextButton.disabled = currentPage === pageCount - 1;
+        pagerText.textContent = `Страница ${currentPage + 1} из ${pageCount}`;
+
+        // Точки пейджера пересоздаём: число страниц зависит от ширины экрана.
+        dotsBox.textContent = "";
+        Array.from({length: pageCount}, function (ignore, page) {
+            const dot = document.createElement("button");
+
+            dot.type = "button";
+            dot.className = "pager-dot";
+            dot.setAttribute("aria-label", `Страница ${page + 1}`);
+            if (page === currentPage) {
+                dot.classList.add("is-active");
+                dot.setAttribute("aria-current", "true");
+            }
+            dot.addEventListener("click", function () {
+                currentPage = page;
+                updateSlider();
+            });
+            dotsBox.appendChild(dot);
+        });
+    }
+
+    function changePage(step) {
+        const total = document.getElementById("slider-track").children.length;
+        const pageCount = Math.ceil(total / getPerPage());
+
+        currentPage = Math.max(0, Math.min(currentPage + step, pageCount - 1));
+        updateSlider();
+    }
+
+    function onResize() {
+        // При смене числа изображений на экране держим номер страницы в допустимых пределах.
+        changePage(0);
+    }
+
+    // Имя initSlider (а не init), чтобы не конфликтовать с init в script.js калькулятора.
+    function initSlider() {
+        document.getElementById("slider-prev").addEventListener("click", function () {
+            changePage(-1);
+        });
+        document.getElementById("slider-next").addEventListener("click", function () {
+            changePage(1);
+        });
+        desktopQuery.addEventListener("change", onResize);
+        updateSlider();
+    }
+
+    window.addEventListener("DOMContentLoaded", initSlider);
+</script>
+
+</body>
+</html>
